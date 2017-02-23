@@ -95,6 +95,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   capybara
   database_cleaner!
   pry
@@ -109,4 +110,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   1.11.2
+   1.14.3
