@@ -5,6 +5,4 @@ class Song < ActiveRecord::Base
 
 	extend Slugifiable::ClassMethods
 	include Slugifiable::InstanceMethods
-
-	binding.pry
 end
