@@ -18,13 +18,10 @@ class SongsController < ApplicationController
 	post '/songs' do
 		@song = Song.create(name: params["song"]["name"])
 
-		if Artist.all.include?(Artist.find_by(name: params["song"]["artist"]["name"]))
-			@song.artist = Artist.find_by(name: params["song"]["artist"]["name"])
-			@song.artist.songs << @song
-		else
-			@song.artist = Artist.create(name: params["song"]["artist"]["name"])
-			@song.artist.songs << @song
-		end
+		#This originally had a long if/else statement based on params
+		#Then I remembered #find_or_create_by exists
+		@song.artist = Artist.find_or_create_by(name: params["song"]["artist"]["name"])
+		@song.artist.songs << @song
 
 		params["song"]["genre_ids"].each do |p|
 			@genre = Genre.find(p)
@@ -41,22 +38,17 @@ class SongsController < ApplicationController
 		erb :"/songs/show"
 	end
 
-	get '/songs/:slug/edit' do 
+	get '/songs/:slug/edit' do
 		@song = Song.find_by_slug(params[:slug])
 		erb :'/songs/edit'
 	end
 
-	post '/songs/:slug' do 
+	post '/songs/:slug' do
 		@song = Song.find_by(name: params["song"]["name"])
 		@song.update(name: params["song"]["name"])
 
-		if Artist.all.include?(Artist.find_by(name: params["song"]["artist"]["name"]))
-			@song.artist = Artist.find_by(name: params["song"]["artist"]["name"])
-			@song.artist.songs << @song
-		else
-			@song.artist = Artist.create(name: params["song"]["artist"]["name"])
-			@song.artist.songs << @song
-		end
+		@song.artist = Artist.find_or_create_by(name: params["song"]["artist"]["name"])
+		@song.artist.songs << @song
 
 		params["song"]["genre_ids"].each do |p|
 			@genre = Genre.find(p)
