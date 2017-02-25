@@ -8,6 +8,7 @@
 	<form action="/songs/<%=@song.slug%>" method=POST>
 		<label>Name:</label>
 		<input type="text" name="song[name]" value="<%=@song.name%>" id="Name">
+		<input type="hidden" name="song[id]" value="<%=@song.id%>">
 
 		<br></br>
 

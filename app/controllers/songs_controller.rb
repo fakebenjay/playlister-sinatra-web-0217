@@ -1,4 +1,3 @@
-
 require "rack-flash"
 
 class SongsController < ApplicationController
@@ -44,7 +43,7 @@ class SongsController < ApplicationController
 	end
 
 	post '/songs/:slug' do
-		@song = Song.find_by(name: params["song"]["name"])
+		@song = Song.find(params["song"]["id"])
 		@song.update(name: params["song"]["name"])
 
 		@song.artist = Artist.find_or_create_by(name: params["song"]["artist"]["name"])
