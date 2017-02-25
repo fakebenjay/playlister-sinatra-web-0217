@@ -44,6 +44,9 @@ class SongsController < ApplicationController
 
 	post '/songs/:slug' do
 		@song = Song.find(params["song"]["id"])
+		#Finds song by id, because if I find_by song name...
+		#It tries to find a song with a name that doesn't exist in the database
+		#@song.id is definted in a hidden value in edit.erb
 		@song.update(name: params["song"]["name"])
 
 		@song.artist = Artist.find_or_create_by(name: params["song"]["artist"]["name"])
